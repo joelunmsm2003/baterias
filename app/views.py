@@ -261,25 +261,23 @@ def guardar(request):
 
 def dashboard(request):
 
-	u = User.objects.get(id=request.user.id)
-
-	#grupo =u.groups.get()
-
-	#npacientes = Pacientes.objects.all().count()
-
-	#ncitas = Citas.objects.all().count()
-
-	#natenciones= Atencion.objects.all().count()
+	marcas= Vehiculo.objects.values('nombre').annotate(Count('nombre'))
 
 
+	for r in request.GET:
 
-	#ncitashoy = Citas.objects.filter(start__gte=datetime.today()).count()
+		if r=='marca':
 
+			marca= request.GET['marca']
+
+			modelos = Vehiculo.objects.filter(nombre=marca)
+
+			return render(request, 'dashboard.html',{'modelos':modelos,'marcas':marcas,'marca':marca})
 
 	
-	
-	#return render(request, 'dashboard.html',{'user':u,'grupo':grupo,'natenciones':natenciones,'npacientes':npacientes,'ncitashoy':ncitashoy,'ncitas':ncitas})
-	return render(request, 'dashboard.html' )
+	print marcas
+
+	return render(request, 'dashboard.html',{'marcas':marcas})
 
 
 def album(request):

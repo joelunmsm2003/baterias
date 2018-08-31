@@ -33,16 +33,17 @@ admin_site = MyAdminSite(name='myadmin')
 @admin.register(Vehiculo)
 class VehiculoAdmin(admin.ModelAdmin):
 	list_display = ('id','nombre','modelo')
+	list_filter=('nombre',)
 
 @admin.register(Produccion)
 class ProduccionAdmin(admin.ModelAdmin):
     list_display = ('id','fecha','cliente','dni')
     search_fields=('dni',)
 
-@admin.register(Modelo_Auto)
-class Modelo_AutoAdmin(admin.ModelAdmin):
-    list_display = ('id','nombre')
-    search_fields=('nombre',)
+# @admin.register(Modelo_Auto)
+# class Modelo_AutoAdmin(admin.ModelAdmin):
+#     list_display = ('id','nombre')
+#     search_fields=('nombre',)
 
 
 @admin.register(Bateria)

@@ -48,12 +48,12 @@ class Vehiculo(models.Model):
 
         return self.nombre
 
-class Modelo_Auto(models.Model):
-    nombre = models.CharField(max_length=1000,blank=True, null=True)
+# class Modelo_Auto(models.Model):
+#     nombre = models.CharField(max_length=1000,blank=True, null=True)
 
-    def __unicode__(self):
+#     def __unicode__(self):
 
-        return self.nombre
+#         return self.nombre
 
 class Pago(models.Model):
     nombre = models.CharField(max_length=1000,blank=True, null=True)
@@ -94,8 +94,8 @@ class Produccion(models.Model):
 
     
           #DATOS DEL VEHICULO 
-    marca_vehiculo= models.ForeignKey(Vehiculo,help_text='Marca del vehículo (p.e. Nissan)',max_length=1000,blank=True, null=True)
-    modelo= models.ForeignKey(Modelo_Auto,help_text='Modelo del vehículo ',max_length=1000,blank=True, null=True)
+    marca_vehiculo= models.ForeignKey(Vehiculo,help_text='Marca del vehículo (p.e. Nissan)',max_length=1000,blank=True, null=True,related_name='_marca')
+    modelo= models.ForeignKey(Vehiculo,help_text='Modelo del vehículo ',max_length=1000,blank=True, null=True,related_name='_modelo')
   
     version= models.CharField(max_length=1000,blank=True, null=True)
     

@@ -18,11 +18,7 @@
 						<!-- Main Navbar-->
 						{% include "header.html" %}
 
-
-				
 								<!-- Side Navbar -->
-
-
 
 									<!-- {% include "sidenav.html" %jj}kk -->
 
@@ -32,110 +28,7 @@
 
 										<header class="page-header">
 
-
 												<div class="container-fluid">
-
-
-
-
-
-<!-- <form>
-                <div class="form-group">
-      <div class="form-group">
-    <div class="form-group col-md-4">
-      <label for="inputPassword"  >prueba</label>
-      
-      <input type="text" class="form-control rounded "  required="true" name="cliente" id="inputEmail4" placeholder="Ingrese Nombre">
-      <button type="" class="btn btn-primary rounded" id="modal " Onclick="alerta()">Guardar</button>
-    </div>
-
-    <div class="form-group col-md-1">
-      <label for="inputPassword4">prueba</label>
-      <input type="text" class="form-control rounded" name="dni" id="inputPassword4" placeholder="DNI">
-    </div>
-
-    <div class="form-group col-md-1">
-      <label for="inputTelefono1">prueba</label>
-      <input type="text" class="form-control rounded" name="telefono_1" id="inputPassword4" placeholder="Telefono">
-    </div>
-    <div class="form-group col-md-1">
-    <label for="inputAddress">prueba</label>
-    <input type="text" class="form-control rounded" name="telefono_2" id="inputAddress" placeholder="Telefono">
-  </div>
-</div>
-   
-
-              </form> -->
-													
-																
-																
-
-																
-
-
-
-
-
-										<!-- Dashboard Counts Section-->
-
-
-										<!--gg{d% include "indicadores.html" %}ll-->
-<!-- 
-              <form>
-                <div class="form-group  d-flex flex-nowrap">
-      <div class="form-group">
-    <div class="form-group col-md-1 ">
-      <label for="inputPassword"  >prueba</label>
-      
-      <input type="text" class="form-control rounded "  required="true" name="cliente" id="inputEmail4" placeholder="Ingrese Nombre">
-    </div>
-
-    <div class="form-group col-md-1">
-      <label for="inputPassword4">prueba</label>
-      <input type="text" class="form-control rounded" name="dni" id="inputPassword4" placeholder="DNI">
-    </div>
-
-    <div class="form-group col-md-1">
-      <label for="inputTelefono1">prueba</label>
-      <input type="text" class="form-control rounded" name="telefono_1" id="inputPassword4" placeholder="Telefono">
-    </div>
-    <div class="form-group col-md-1">
-    <label for="inputAddress">prueba</label>
-    <input type="text" class="form-control rounded" name="telefono_2" id="inputAddress" placeholder="Telefono">
-  </div>
-</div>
-   
-
-
-   <div class="form-group  m-1 ">
-    <div class="form-group col-md-1  ">
-      <label for="inputPassword"  >prueba1</label>
-      
-      <input type="text" class="form-control rounded "  required="true" name="cliente" id="inputEmail4" placeholder="Ingrese Nombre">
-    </div>
-
-    <div class="form-group col-md-1">
-      <label for="inputPassword4">prueba1</label>
-      <input type="text" class="form-control rounded" name="dni" id="inputPassword4" placeholder="DNI">
-    </div>
-
-    <div class="form-group col-md-1">
-      <label for="inputTelefono1">prueba1</label>
-      <input type="text" class="form-control rounded" name="telefono_1" id="inputPassword4" placeholder="Telefono">
-    </div>
-    <div class="form-group col-md-1">
-    <label for="inputAddress">prueba1</label>
-    <input type="text" class="form-control rounded" name="telefono_2" id="inputAddress" placeholder="Telefono">
-  </div>
-  </div>
-  <br>
-  <br>
-  <br>
-
-              </form>
-		 -->
-
-
 
 
 
@@ -189,14 +82,49 @@
 
   <div class="form-row m-1">
 
-    <div class="form-group col-md-2">
+  <div class="form-group col-md-2">
     <label for="inputMarca" class="text-dark">Marca del vehiculo</label>
-    <input type="text" class="form-control rounded" id="inputMarca" name='marca_vehiculo' placeholder="ingresar Marca">
+
+    <select name='marca_vehiculo' id="marca" class="form-control" onchange='traemodelos()' >
+
+        {% for m in marcas %}
+
+            {% if marca == m.nombre %}
+
+              <option value='{{m.nombre}}' selected>{{m.nombre}}</option>
+
+            {% else %}
+
+              <option  value='{{m.nombre}}'>{{m.nombre}}</option>
+
+            {% endif %}
+
+
+        {% endfor %}
+
+    </select>
+    
+
+
+
   </div>
 
     <div class="form-group col-md-2">
     <label for="inputModelo" class="text-dark">Modelo del vehiculo</label>
-    <input type="text" class="form-control" id="inputModelo" name="modelo" placeholder="Ingresar Modelo">
+    
+
+     <select name='marca_vehiculo' class="form-control">
+
+        {% for m in modelos %}
+
+        <option value='{{m.id}}'>{{m.modelo}}</option>
+
+        {% endfor %}
+
+    </select>
+
+
+
   </div>
 
 
@@ -477,6 +405,27 @@ swal({
 
 
 <script type="text/javascript">
+
+
+
+
+    function traemodelos() {
+
+
+      var x = document.getElementById("marca").value;
+    
+
+     
+
+      window.location.href = "/dashboard/?marca="+x
+
+
+
+    }
+
+
+
+
   $(document).ready(function(){
     $("#bboleta").click(function(){
 
@@ -491,10 +440,6 @@ swal({
 
   });
 
-</script>
-
-
-<script type="text/javascript">
   $(document).ready(function(){
     $("#ffactura").click(function(){
 
