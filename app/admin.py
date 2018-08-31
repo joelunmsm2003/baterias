@@ -32,13 +32,45 @@ admin_site = MyAdminSite(name='myadmin')
 
 @admin.register(Vehiculo)
 class VehiculoAdmin(admin.ModelAdmin):
-	list_display = ('id','nombre')
+	list_display = ('id','nombre','modelo')
 
 @admin.register(Produccion)
 class ProduccionAdmin(admin.ModelAdmin):
     list_display = ('id','fecha','cliente','dni')
     search_fields=('dni',)
-    
+
+@admin.register(Modelo_Auto)
+class Modelo_AutoAdmin(admin.ModelAdmin):
+    list_display = ('id','nombre')
+    search_fields=('nombre',)
+
+
+@admin.register(Bateria)
+class BateriaAdmin(admin.ModelAdmin):
+    list_display = ('id','cantidad','marca','modelo','codigo')
+    search_fields=('cantidad',)
+
+@admin.register(Pago)
+class PagooAdmin(admin.ModelAdmin):
+    list_display = ('id','nombre')
+    search_fields=('nombre',)
+
+@admin.register(Atiende)
+class AtiendeAdmin(admin.ModelAdmin):
+    list_display = ('id','nombre')
+    search_fields=('nombre',)
+
+ 
+@admin.register(Almacen)
+class AlmacenAdmin(admin.ModelAdmin):
+    list_display = ('id','nombre')
+    search_fields=('nombre',)      
+
+
+@admin.register(Status)
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('id','nombre')
+    search_fields=('nombre',)
 
 # @admin.register(Estructura)
 # class EstructuraAdmin(admin.ModelAdmin):

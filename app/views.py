@@ -59,6 +59,7 @@ import unicodecsv as csv
 import pandas as pd
 from .models import Album
 from django.views import generic
+import pandas as pd
 
 class IndexView(generic.ListView):
 	"""docstring for ClassName"""
@@ -76,11 +77,6 @@ class DetailView(generic.DetailView):
 	template_name="app/detail.html"
 	
 		
-
-
-
-
-
 
 
 	
@@ -166,7 +162,63 @@ class Uploadphoto(JSONWebTokenAuthMixin, View):
 
 
 def login2(request):
+
+
+	# df=pd.read_csv('/home/baterias/MarcasModelosBaterias.csv',header=0)
+
+	# Bateria.objects.all().delete()
+
+
+	# for i in range(df.shape[0]):
+
+	# 	marca = df['MARCA'][i]
+	# 	modelo = df['MODELO '][i]
+	# 	equivalencia = df['EQUIVALENCIA'][i]
+	# 	codigo = df['CODIGO'][i]
+
+
+	# 	Bateria(marca=marca,modelo=modelo,equivalencia=equivalencia,codigo=codigo,).save()
+
+
+	return render(request, 'login.html',{})
+
+def subir(request):
+
+
+	df=pd.read_csv('/home/baterias/MarcasModelosBaterias.csv',header=0)
+
+	Bateria.objects.all().delete()
+
+
+	for i in range(df.shape[0]):
+
+		marca = df['MARCA'][i]
+		modelo = df['MODELO '][i]
+		equivalencia = df['EQUIVALENCIA'][i]
+		codigo = df['CODIGO'][i]
+
+
+		Bateria(marca=marca,modelo=modelo,equivalencia=equivalencia,codigo=codigo,).save()
+
+
+	return render(request, 'login.html',{})
+
+def masacre(request):
+
 	
+	df=pd.read_csv('/home/baterias/MarcasModelosAutos.csv',header=0)
+
+
+
+	Vehiculo.objects.all().delete()
+	for i in range(df.shape[0]):
+
+		marca = df['Marca'][i]
+		modelo = df['Modelo'][i]
+		version = df['Version'][i]
+		Vehiculo(nombre=marca,modelo=modelo,version=version,).save()
+
+
 	return render(request, 'login.html',{})
 
 
@@ -4776,6 +4828,7 @@ class Detallepropuesta(JSONWebTokenAuthMixin, View):
 		r= simplejson.dumps(ValuesQuerySetToDict(r))
 
 		return HttpResponse(r, content_type="application/json")
+
 
 
 

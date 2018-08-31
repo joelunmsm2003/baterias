@@ -23,11 +23,14 @@ class Album(models.Model):
 
 
 class Bateria(models.Model):
+    codigo = models.CharField(max_length=1000,blank=True, null=True)
+    equivalencia = models.CharField(max_length=1000,blank=True, null=True)
     cantidad = models.CharField(max_length=1000,blank=True, null=True)
     marca = models.CharField(max_length=1000,blank=True, null=True)
     modelo = models.CharField(max_length=1000,blank=True, null=True)
     precio = models.CharField(max_length=1000,blank=True, null=True)
     cant_bat_usadas= models.CharField(max_length=1000,blank=True, null=True)
+
 
 
 class Factura(models.Model):
@@ -38,11 +41,47 @@ class Factura(models.Model):
 
 class Vehiculo(models.Model):
     nombre = models.CharField(max_length=1000,blank=True, null=True)
+    modelo= models.CharField(max_length=1000,blank=True, null=True)
+    version= models.CharField(max_length=1000,blank=True, null=True)
 
     def __unicode__(self):
 
         return self.nombre
 
+class Modelo_Auto(models.Model):
+    nombre = models.CharField(max_length=1000,blank=True, null=True)
+
+    def __unicode__(self):
+
+        return self.nombre
+
+class Pago(models.Model):
+    nombre = models.CharField(max_length=1000,blank=True, null=True)
+
+    def __unicode__(self):
+
+        return self.nombre
+
+class Atiende(models.Model):
+    nombre = models.CharField(max_length=1000,blank=True, null=True)
+
+    def __unicode__(self):
+
+        return self.nombre
+
+class Almacen(models.Model):
+    nombre = models.CharField(max_length=1000,blank=True, null=True)
+
+
+    def __unicode__(self):
+
+        return self.nombre
+class Status(models.Model):
+    nombre = models.CharField(max_length=1000,blank=True, null=True)
+
+    def __unicode__(self):
+
+        return self.nombre
 
 class Produccion(models.Model):
     fecha = models.DateTimeField(help_text=u'Fecha de recepción de la llamada (No se puede modificar)',default=datetime.datetime.today(),editable=False)
@@ -56,8 +95,10 @@ class Produccion(models.Model):
     
           #DATOS DEL VEHICULO 
     marca_vehiculo= models.ForeignKey(Vehiculo,help_text='Marca del vehículo (p.e. Nissan)',max_length=1000,blank=True, null=True)
-    modelo= models.CharField(max_length=1000,blank=True, null=True)
+    modelo= models.ForeignKey(Modelo_Auto,help_text='Modelo del vehículo ',max_length=1000,blank=True, null=True)
+  
     version= models.CharField(max_length=1000,blank=True, null=True)
+    
     serie= models.CharField(max_length=1000,blank=True, null=True)
     anio= models.CharField(max_length=1000,blank=True, null=True)
     motor= models.CharField(max_length=1000,blank=True, null=True)

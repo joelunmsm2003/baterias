@@ -14,10 +14,15 @@ urlpatterns = [
     
     # url(r'^$', 'views.IndexView'),
     url(r'^admin/', admin.site.urls),
+    
     url(r'^api-token-auth/', 'jwt_auth.views.obtain_jwt_token'),
     url(r'^pos/', admin_site.urls),
     url(r'api-token-refresh/', refresh_jwt_token),
     url(r'^login/$', 'app.views.login2'),
+    url(r'^subir/$', 'app.views.subir'),
+    url(r'^masacre/$', 'app.views.masacre'),
+
+
     url(r'^ingresar/$','app.views.ingresar'),
     url(r'^dashboard/$', 'app.views.dashboard'),
     url(r'^album/$', 'app.views.album'),
