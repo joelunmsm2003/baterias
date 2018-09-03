@@ -29,6 +29,7 @@ urlpatterns = [
 
     url(r'^paciente/$', paciente),
     url(r'^nuevopaciente/$', nuevopaciente),
+    url(r'^guardar$', guardar),
 
     
     #url(r'^enviasms$', Enviasms.as_view()),

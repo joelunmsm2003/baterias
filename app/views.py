@@ -200,6 +200,9 @@ def guardar(request):
 		telefono_1= request.POST['telefono_1']
 		telefono_2= request.POST['telefono_2']
 		cliente= request.POST['cliente']
+		apellido_p= request.POST['apellido_p']
+		apellido_m= request.POST['apellido_m']
+
 		dni= request.POST['dni']
 		marca_vehiculo= request.POST['marca_vehiculo']
 		modelo= request.POST['modelo']
@@ -207,7 +210,7 @@ def guardar(request):
 		serie= request.POST['serie']
 		anio= request.POST['anio']
 		motor= request.POST['motor']
-		cilindrada= request.POST['cilindrada']
+		#cilindrada= request.POST['cilindrada']
 		color= request.POST['color']
 		kilometraje= request.POST['kilometraje']
 		placa= request.POST['placa']
@@ -252,7 +255,7 @@ def guardar(request):
         
 
 		#ruc = request.POST['ruc']
-		Produccion(telefono_1=telefono_1,telefono_2=telefono_2,cliente=cliente,dni=dni,marca_vehiculo_id=None,modelo=modelo,version=version,serie=serie,anio=anio,motor=motor,cilindrada=cilindrada,color=color,kilometraje=kilometraje,placa=placa,cantidad=cantidad,marca_producto=marca_producto,precio=precio,descuento=descuento,precio_total=precio_total,cantidad_bu=cantidad_bu,fecha_atencion=fecha_atencion,direccion_atencion=direccion_atencion,referencia=referencia,comprobante=pago,ruc=ruc,razon_social=razon_social,direccion_rs=direccion_rs,correo=correo,atiende=atiende,almacen=almacen,gmail=gmail,status=status,observaciones=observaciones,nombre_boleta=nombre_boleta,dni_c=dni_c,direccion1=direccion1).save()
+		Produccion(telefono_1=telefono_1,telefono_2=telefono_2,cliente=cliente,apellido_p=apellido_p,apellido_m=apellido_m,dni=dni,marca_vehiculo_id=None,modelo_id=modelo,version=version,serie=serie,anio=anio,motor=motor,color=color,kilometraje=kilometraje,placa=placa,cantidad=cantidad,marca_producto=marca_producto,precio=precio,descuento=descuento,precio_total=precio_total,cantidad_bu=cantidad_bu,fecha_atencion=fecha_atencion,direccion_atencion=direccion_atencion,referencia=referencia,comprobante=pago,ruc=ruc,razon_social=razon_social,direccion_rs=direccion_rs,correo=correo,atiende=atiende,almacen=almacen,gmail=gmail,status=status,observaciones=observaciones,nombre_boleta=nombre_boleta,dni_c=dni_c,direccion1=direccion1).save()
 		#print 'telefonoooo',tlf1,
 	return HttpResponseRedirect("/dashboard")
 #referencia=referencia,
@@ -261,23 +264,52 @@ def guardar(request):
 
 def dashboard(request):
 
+
 	marcas= Vehiculo.objects.values('nombre').annotate(Count('nombre'))
 
+	marca=''
+	modelos=''
+	cliente=""
+	apellido_p=''
+	
+	apellido_m=''
+
+	
+	
+
+	print request.GET
 
 	for r in request.GET:
+
+		print 'r',r
 
 		if r=='marca':
 
 			marca= request.GET['marca']
 
 			modelos = Vehiculo.objects.filter(nombre=marca)
+			
+		if r=='cliente':
 
-			return render(request, 'dashboard.html',{'modelos':modelos,'marcas':marcas,'marca':marca})
+			print 'entre pinches way'
+
+			cliente =request.GET['cliente']
+
+		if r=='apellido_p':
+
+		 	apellido_p =request.GET['apellido_p']
+
+		if r=='apellido_m':
+
+			apellido_m =request.GET['apellido_m']
+
+
+	return render(request, 'dashboard.html',{'cliente':cliente,'apellido_p':apellido_p,'apellido_m':apellido_m,'modelos':modelos,'marcas':marcas,'marca':marca})
 
 	
-	print marcas
 
-	return render(request, 'dashboard.html',{'marcas':marcas})
+	#return render(request, 'dashboard.html',{'marcas':marcas})
+
 
 
 def album(request):
