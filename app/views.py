@@ -274,6 +274,11 @@ def dashboard(request):
 	
 	apellido_m=''
 
+	dni=''
+	telefono_1=''
+
+	telefono_2=''
+
 	
 	
 
@@ -303,8 +308,19 @@ def dashboard(request):
 
 			apellido_m =request.GET['apellido_m']
 
+		if r=='dni':
 
-	return render(request, 'dashboard.html',{'cliente':cliente,'apellido_p':apellido_p,'apellido_m':apellido_m,'modelos':modelos,'marcas':marcas,'marca':marca})
+			dni =request.GET['dni']
+
+		if r=='telefono_1':
+
+			telefono_1 =request.GET['telefono_1']
+
+		if r=='telefono_2':
+
+			telefono_2 =request.GET['telefono_2']
+
+	return render(request, 'dashboard.html',{'telefono_2':telefono_2,'telefono_1':telefono_1,'dni':dni,'cliente':cliente,'apellido_p':apellido_p,'apellido_m':apellido_m,'modelos':modelos,'marcas':marcas,'marca':marca})
 
 	
 
