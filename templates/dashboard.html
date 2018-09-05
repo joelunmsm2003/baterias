@@ -357,7 +357,7 @@ $( "#gridCheck" ).click(function() {
   console.log('entre putitas')
 
 
-  $( "#inputDirec" ).val('') || [];
+  $( "#inputDirec" ).val(direccion);
 
 
 
@@ -410,11 +410,32 @@ $( "#gridCheck" ).click(function() {
 
     <div class="form-group col-md-4">
       <label for="inputState" class="text-dark">Pago</label>
-      <select id="inputState"  name="comprobante" class="form-control rounded">
+
+
+      <!-- <select id="inputState"  name="comprobante" class="form-control rounded">
         <option>...</option>
         <option selected value="0" class="text-dark">Efectivo</option>
         <option selected value="1" class="text-dark">Tarjeta</option>
-              </select>
+        </select> -->
+
+
+        <!--esto es pagos {{pagos}}-->
+
+         <select name='comprobante' class="form-control">
+
+        {% for p in pagos %}
+
+
+        <option value='{{p.id}}'>{{p.nombre}}</option>
+
+        {% endfor %}
+
+
+    </select>
+
+
+
+
     </div>
 
 
@@ -426,21 +447,51 @@ $( "#gridCheck" ).click(function() {
 
     <div class="form-group col-md-2">
       <label for="inputSta" class="text-dark">Atiende</label>
-      <select id="inputSta"  name="atiende"   class="form-control rounded">
+      <!-- <select id="inputSta"  name="atiende"   class="form-control rounded">
 
         <option>...</option>
         <option selected value="0">Raul</option>
         <option selected value="1">Luis</option>
-              </select>
+        </select>
+ -->
+          <select name='atiende' class="form-control">
+
+        {% for mm in atiende %}
+
+
+        <option value='{{mm.id}}'>{{mm.nombre}}</option>
+
+        {% endfor %}
+
+
+    </select>
+
+
+
+
     </div>
 
     <div class="form-group col-md-2">
       <label for="inputS" class="text-dark">Almacen</label>
-      <select id="inputS"  name="almacen" class="form-control rounded">
+      <!-- <select id="inputS"  name="almacen" class="form-control rounded">
         <option>...</option>
         <option selected value="0">Batery-xbgj</option>
         <option selected value="1">Batery-xbgj01</option>
-              </select>
+              </select> -->
+
+
+
+        
+         <select name='almacen' class="form-control">
+
+        {% for a in almacen %}
+
+
+        <option value='{{a.id}}'>{{a.nombre}}</option>
+
+        {% endfor %}
+
+      </select>
     </div>
 
 
@@ -453,10 +504,38 @@ $( "#gridCheck" ).click(function() {
               <input type="file" name="file"/>
             </div-->
 
-    <div class="form-group col-md-4">
+   <!--  <div class="form-group col-md-4">
       <label for="inputEstado" class="text-dark">Status</label>
       <input type="text" class="form-control rounded"  name="status" id="inputEstado" placeholder="Statua">
     </div>
+ -->
+
+
+
+ <div class="form-group col-md-4">
+      <label for="inputS" class="text-dark">Status</label>
+      <!-- <select id="inputS"  name="almacen" class="form-control rounded">
+        <option>...</option>
+        <option selected value="0">Batery-xbgj</option>
+        <option selected value="1">Batery-xbgj01</option>
+              </select> -->
+
+
+
+        
+         <select name='status' class="form-control">
+
+        {% for s in status %}
+
+
+        <option value='{{s.id}}'>{{s.nombre}}</option>
+
+        {% endfor %}
+
+      </select>
+    </div>
+
+
 
     <div class="form-group col-md-4">
       <label for="inputObs" class="text-dark" >Observaciones</label>
@@ -467,7 +546,7 @@ $( "#gridCheck" ).click(function() {
 
     
 
-      <center><button type="submit" class="btn btn-primary rounded" id="modal " Onclick="alerta()">Guardar</button></center>
+      <center><button type="submit" class="btn btn-primary rounded" id="modal" style="display: none" Onclick="alerta()">Guardar</button></center>
 
 
 
@@ -532,7 +611,8 @@ $( "#gridCheck" ).click(function() {
       var dni = document.getElementById("dni").value;
       var telefono_1 = document.getElementById("telefono_1").value;
       var telefono_2 = document.getElementById("telefono_2").value;
-      var direccion = document.getElementById("direccion").value;
+      //var pago = document.getElementById("pago").value;
+      // var direccion = document.getElementById("direccion").value;
 
      
 
@@ -552,6 +632,8 @@ $( "#gridCheck" ).click(function() {
       $('#descripcion').hide()
        $('#bboleta1').show()
        $('#descripcion').show()
+       $('#modal').show()
+
 
     });
    
@@ -567,6 +649,7 @@ $( "#gridCheck" ).click(function() {
        $('#descripcion').show()
        $('#ffactura1').show()
        $('#descripcion').show()
+       $('#modal').show()
     });
    
 

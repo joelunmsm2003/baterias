@@ -265,8 +265,21 @@ def guardar(request):
 def dashboard(request):
 
 
-	marcas= Vehiculo.objects.values('nombre').annotate(Count('nombre'))
+	marcas= Vehiculo.objects.values('nombre').annotate(Count('nombre')) #.annotate(Count('nombre')) es para agrupar
+	pagos= Pago.objects.all()
+	almacen=Almacen.objects.all()
+	atiende=Atiende.objects.all()
+	status=Status.objects.all()
+	# produccion = Produccion.objects.filter(id=id)
+	
 
+
+
+	print '---------se ingreso correctamente-',pagos
+	print '---------se ingreso correctamente-',almacen
+	
+	print '---------se ingreso correctamente--------------------------------------------------'	
+	nombre=''
 	marca=''
 	modelos=''
 	cliente=""
@@ -287,6 +300,7 @@ def dashboard(request):
 	for r in request.GET:
 
 		print 'r',r
+			
 
 		if r=='marca':
 
@@ -320,7 +334,9 @@ def dashboard(request):
 
 			telefono_2 =request.GET['telefono_2']
 
-	return render(request, 'dashboard.html',{'telefono_2':telefono_2,'telefono_1':telefono_1,'dni':dni,'cliente':cliente,'apellido_p':apellido_p,'apellido_m':apellido_m,'modelos':modelos,'marcas':marcas,'marca':marca})
+		
+
+	return render(request, 'dashboard.html',{'status':status,'atiende':atiende,'almacen':almacen,'pagos':pagos,'telefono_2':telefono_2,'telefono_1':telefono_1,'dni':dni,'cliente':cliente,'apellido_p':apellido_p,'apellido_m':apellido_m,'modelos':modelos,'marcas':marcas,'marca':marca})
 
 	
 

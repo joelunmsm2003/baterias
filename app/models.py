@@ -143,7 +143,8 @@ class Produccion(models.Model):
     ruc= models.CharField(max_length=1000,blank=True, null=True)
     razon_social= models.CharField(max_length=1000,blank=True, null=True)
     direccion_rs= models.CharField(max_length=1000,blank=True, null=True)
-    pago= models.CharField(max_length=1000,blank=True, null=True)
+    pago= models.ForeignKey(Pago,max_length=1000,blank=True, null=True)
+  
     correo= models.CharField(max_length=1000,blank=True, null=True)
     atiende= models.CharField(max_length=1000,blank=True, null=True)
     almacen= models.CharField(max_length=1000,blank=True, null=True)
