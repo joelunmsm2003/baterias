@@ -16,6 +16,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 
+from django.conf import settings
+
 
 class Album(models.Model):
     nombre= models.CharField(max_length=1000,blank=True, null=True)
@@ -135,7 +137,14 @@ class Produccion(models.Model):
 
 
     mismo_cliente= models.CharField(max_length=1000,blank=True, null=True)
+   
+     
+
     nombre_boleta= models.CharField(max_length=1000,blank=True, null=True)
+    m_apellido_p= models.CharField(max_length=1000,blank=True, null=True)
+    m_apellido_m= models.CharField(max_length=1000,blank=True, null=True)
+
+
     direccion1= models.CharField(max_length=1000,blank=True, null=True)
     dni_c= models.CharField(max_length=1000,blank=True, null=True)
     
@@ -152,6 +161,8 @@ class Produccion(models.Model):
     #foto = models.FileField(upload_to='static')
     status= models.CharField('Estado',max_length=1000,blank=True, null=True)
     observaciones= models.CharField(max_length=1000,blank=True, null=True)
+    usuario=models.ForeignKey(User,help_text='Modelo del vehículo ',max_length=1000,blank=True, null=True,related_name='_modelo')
+
     
 
 

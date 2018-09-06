@@ -60,6 +60,10 @@ from .models import Album
 from django.views import generic
 import pandas as pd
 
+import datetime
+
+now = datetime.datetime.now()
+
 
 
 	
@@ -240,6 +244,9 @@ def guardar(request):
 
 
 		nombre_boleta= request.POST['nombre_boleta']
+		m_apellido_p= request.POST['m_apellido_p']
+		m_apellido_p= request.POST['m_apellido_m']
+
 		dni_c= request.POST['dni_c']
 		direccion1= request.POST['direccion1']
 
@@ -270,14 +277,16 @@ def dashboard(request):
 	almacen=Almacen.objects.all()
 	atiende=Atiende.objects.all()
 	status=Status.objects.all()
-	# produccion = Produccion.objects.filter(id=id)
+	fecha=str(now)
+	
 	
 
 
 
 	print '---------se ingreso correctamente-',pagos
 	print '---------se ingreso correctamente-',almacen
-	
+	print 'entre con la hora',str(now)
+	print 'fechassssss',fecha
 	print '---------se ingreso correctamente--------------------------------------------------'	
 	nombre=''
 	marca=''

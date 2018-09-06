@@ -6,8 +6,14 @@
  
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="text/javascript" src="/static/js/dashboard.js"></script>
 
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/jquery-3.3.1.min.js">
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 
 <form name="f2">
   <p>Número 1: <input type="number" name="num1" value="0" onchange="cal()" /></p>
@@ -20,7 +26,9 @@
 
 
 
-     
+   
+
+
    
  </div>
 <html lang="en" id="top">
@@ -206,7 +214,7 @@
 
     <div class="form-group col-md-2">
       <label for="inputP" class="text-dark">Cantidad de Baterias</label>
-      <input type="number" class="form-control rounded" id="inputP" name="cantidad"  value="0" onchange="cal()" placeholder="100" >
+      <input type="number" class="form-control rounded" id="inputP" name="cantidad"  value="1" onchange="cal()" placeholder="100" >
     </div>
 
     <div class="form-group col-md-2">
@@ -264,8 +272,77 @@
 
   <div class="form-group col-md-4">
     <label for="inputFI" class="text-dark">Fecha de instalacion</label>
-    <input type="date" class="form-control" required="true" name="fecha_atencion" id="inputFI" placeholder="fecha">
+    <input type="text" class="form-control" required="true" name="fecha_atencion" id="inputFI" placeholder="fecha">
   </div>
+
+
+
+
+<!-- <div id="content">
+
+  <input type="date" id="fechaalta" nombre="fechaalta">  
+  <p id="t"></p>
+
+  <input id="datepicker" type="text">
+</div>
+ -->
+
+
+<!-- CON ESTE ESCRIP ISE PARA PONER LA FECHA ACTUAL  EN UN IMPUT---->
+
+<script type="text/javascript">
+  
+
+
+// Para este script funcione debe útilizar las últimas librerías de jquery y jquery UI
+
+var d= new Date();
+
+var dia = ("0"+(d.getDate())); 
+var mes =  ("0" + (d.getMonth() + 1));
+var anio = d.getFullYear(); 
+
+var fechatotal = dia + "/"+ mes +"/" + anio
+
+$("#fechaalta").html('fechatotal');
+
+$('#t').html("<span>Fecha Actual: </span>" + fechatotal);
+
+ $( "#inputFI" ).datepicker().val(fechatotal);
+
+
+</script>
+
+
+<!--  FINN CON ESTE ESCRIP ISE PARA PONER LA FECHA ACTUAL  EN UN IMPUT---->
+
+
+
+
+
+
+<!-- 
+<div>
+  <button id="btn">Feed</button>
+  
+
+</div>
+<input type="text" id='uber' value="">
+<input type="text" id='rr' value="">
+ 
+<script>
+$( "#btn" ).click(function() {
+ var text = $('#rr').text();
+  var text = $( this ).text();
+  $( "#uber" ).val( text );
+});
+</script> -->
+ 
+
+
+
+
+
 
   <div class="form-group col-md-4">
     <label for="inputRF" class="text-dark">Direccion de Atencion </label>
@@ -302,15 +379,27 @@
       <input type="text" class="form-control rounded" name="razon" id="inputRs" placeholder="Razon Social">
     </div-->
 
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-3">
       <label for="inputNombre" class="text-dark" >Nombre</label>
       <input type="text" class="form-control rounded" id="inputNombre" name="nombre_boleta" placeholder="Nombre del Cliente">
     </div>
-    <div class="form-group col-md-6">
+     <div class="form-group col-md-3">
+      <label for="inputApellido_p" class="text-dark" >Primer Apellido</label>
+      <input type="text" class="form-control rounded" id="inputApellido_p" name="m_apellido_p" placeholder="Nombre del Cliente">
+    </div>
+
+     <div class="form-group col-md-3">
+      <label for="inputApellido_m" class="text-dark" >Segundo Apellido</label>
+      <input type="text" class="form-control rounded" id="inputApellido_m" name="m_apellido_m">
+    </div>
+
+
+    <div class="form-group col-md-3">
       <label for="inputDNI" class="text-dark" >DNI del Cliente</label>
       <input type="text" class="form-control rounded" id="inputDNI" name="dni_c" placeholder="Ingrese DNI">
     </div>
 
+    
 
  <!--  <script type="text/javascript">
     $(document).ready(function(){
@@ -332,6 +421,9 @@ $( "#gridCheck" ).click(function() {
   var text = $('#dni').text();
   console.log(text)
   $( "#inputNombre" ).val("{{cliente}}");
+  $( "#inputApellido_p" ).val("{{apellido_p}}");
+  $( "#inputApellido_m" ).val("{{apellido_m}}");
+
   $( "#inputDNI" ).val("{{dni}}");
 
 });
