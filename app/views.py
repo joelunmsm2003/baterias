@@ -61,8 +61,15 @@ from django.views import generic
 import pandas as pd
 
 import datetime
+from datetime import datetime,timedelta
+from django.utils import timezone
 
-now = datetime.datetime.now()
+# now = timezone.now()
+
+# print 'dode esta la fechaaa?', now
+
+
+
 
 
 
@@ -250,10 +257,18 @@ def guardar(request):
 		dni_c= request.POST['dni_c']
 		direccion1= request.POST['direccion1']
 
-		
+		f=str(fecha_atencion).split('/')
+
+		print 'ffffffffffffffffffff', f
 
 
 
+		fecha_atencion = datetime.strptime(fecha_atencion, '%d/%m/%Y')
+
+		print 'la FECHA ES CORRECTA???',fecha_atencion
+
+		hora_instalacion= fecha_atencion+timedelta(hours=1)
+		print 'Lupita.....', hora_instalacion
 		
 
 		#ruc=ruc,direc_rs=razon_socia,direc_rs=direccion_rs,correo=correo,atiende=atiende,almacen=almacen,gmail=gmail,status=estado,obserbaciones=obserbaciones
@@ -277,16 +292,14 @@ def dashboard(request):
 	almacen=Almacen.objects.all()
 	atiende=Atiende.objects.all()
 	status=Status.objects.all()
-	fecha=str(now)
-	
+
 	
 
 
 
 	print '---------se ingreso correctamente-',pagos
 	print '---------se ingreso correctamente-',almacen
-	print 'entre con la hora',str(now)
-	print 'fechassssss',fecha
+
 	print '---------se ingreso correctamente--------------------------------------------------'	
 	nombre=''
 	marca=''

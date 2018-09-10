@@ -19,6 +19,7 @@ import datetime
 from django.conf import settings
 
 
+
 class Album(models.Model):
     nombre= models.CharField(max_length=1000,blank=True, null=True)
 
@@ -125,7 +126,7 @@ class Produccion(models.Model):
 
                 #DATOS DE LA ATENCION
     fecha_atencion= models.DateField(max_length=1000,blank=True, null=True)
-    hora_instalacion= models.TimeField(max_length=1000,blank=True, null=True)           
+    hora_instalacion= models.TimeField(max_length=1000,blank=True, null=True,default=datetime.datetime.today(),editable=False)           
     misma_direccion= models.CharField(max_length=1000,blank=True, null=True)
     direccion_atencion= models.CharField(max_length=1000,blank=True, null=True)
     referencia= models.CharField(max_length=1000,blank=True, null=True)

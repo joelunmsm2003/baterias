@@ -1,6 +1,18 @@
 //fechasssss
 
 
+
+
+
+
+
+$( "button" ).click(function() {
+  var text = $( this ).text();
+  $( "#input" ).val( text );
+});
+
+
+
 var today = new Date();
 
 var day = today.getDate();

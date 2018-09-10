@@ -37,7 +37,7 @@ class VehiculoAdmin(admin.ModelAdmin):
 
 @admin.register(Produccion)
 class ProduccionAdmin(admin.ModelAdmin):
-    list_display = ('id','fecha','cliente','dni')
+    list_display = ('id','fecha','cliente','dni','hora_instalacion')
     search_fields=('id','cliente','dni')
 
 
