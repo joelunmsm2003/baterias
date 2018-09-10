@@ -64,9 +64,7 @@ import datetime
 from datetime import datetime,timedelta
 from django.utils import timezone
 
-# now = timezone.now()
 
-# print 'dode esta la fechaaa?', now
 
 
 
