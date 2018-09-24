@@ -9,12 +9,12 @@
 # email : joelunmsm@gmail.com
 # web   : xiencias.com
 
-print 	 "____   ____                             __________                     "
-print 	 "\   \ /   /____    _____   ____  ______ \______   \ ___________ __ __  "
-print 	 " \   Y   /\__  \  /     \ /  _ \/  ___/  |     ___// __ \_  __ \  |  \ "
-print 	 "  \     /  / __ \|  Y Y  (  <_> )___ \   |    |   \  ___/|  | \/  |  / "
-print 	 "   \___/  (____  /__|_|  /\____/____  >  |____|    \___  >__|  |____/  "
-print 	 "               \/      \/           \/                 \/           	 "
+print    "____   ____                             __________                     "
+print    "\   \ /   /____    _____   ____  ______ \______   \ ___________ __ __  "
+print    " \   Y   /\__  \  /     \ /  _ \/  ___/  |     ___// __ \_  __ \  |  \ "
+print    "  \     /  / __ \|  Y Y  (  <_> )___ \   |    |   \  ___/|  | \/  |  / "
+print    "   \___/  (____  /__|_|  /\____/____  >  |____|    \___  >__|  |____/  "
+print    "               \/      \/           \/                 \/              "
 
 from django.shortcuts import *
 from django.template import RequestContext
@@ -39,7 +39,7 @@ from django.db.models import Count,Sum
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
-
+from app.forms import *
 from django.contrib.auth import authenticate
 import time
 from django.db.models import Func
@@ -59,18 +59,31 @@ import pandas as pd
 from .models import Album
 from django.views import generic
 import pandas as pd
-
+from django.contrib.auth.models import User
 import datetime
 from datetime import datetime,timedelta
 from django.utils import timezone
 
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 
 
+ahora = datetime.now()
+print 'hols_yo soy la hora',ahora
+
+def usuarios(request):
+	usuarios = User.objects.all()
+	#recetas = Receta.objects.all()
+	#context = {'recetas': recetas, 'usuarios':usuarios}
+	return render(request, 'header.html', context)
 
 
-
+def privado(request):
+	usuario = request.user
+	context = {'usuario': usuario}
+	return render(request, 'header.html', context)
 	
 def nuevopaciente(request):
 
@@ -113,6 +126,33 @@ def nuevopaciente(request):
 	return render(request, 'dashboard.html',{'form': form})
 
 
+
+# @login_required(login_url="/dashboard/")
+def vehiculos(request):
+
+
+	if request.method=='POST':
+
+		form = VehiculosForm(request.POST)
+	
+		if form.is_valid():
+
+			form.save()
+
+		return HttpResponseRedirect("/dashboard")
+
+
+	if request.method=='GET':
+
+		vehiculos = Vehiculo.objects.all()
+		context = {'datos': vehiculos}
+		
+		formula = VehiculosForm()
+
+		context = {'datoss': formula}
+
+	return render(request, 'dashboard.html',context)
+
 def login2(request):
 
 
@@ -123,13 +163,13 @@ def login2(request):
 
 	# for i in range(df.shape[0]):
 
-	# 	marca = df['MARCA'][i]
-	# 	modelo = df['MODELO '][i]
-	# 	equivalencia = df['EQUIVALENCIA'][i]
-	# 	codigo = df['CODIGO'][i]
+	#   marca = df['MARCA'][i]
+	#   modelo = df['MODELO '][i]
+	#   equivalencia = df['EQUIVALENCIA'][i]
+	#   codigo = df['CODIGO'][i]
 
 
-	# 	Bateria(marca=marca,modelo=modelo,equivalencia=equivalencia,codigo=codigo,).save()
+	#   Bateria(marca=marca,modelo=modelo,equivalencia=equivalencia,codigo=codigo,).save()
 
 
 	return render(request, 'login.html',{})
@@ -178,22 +218,22 @@ def masacre(request):
 
 def ingresar(request):
 
-    username = request.POST['username']
-    password = request.POST['password']
+	username = request.POST['username']
+	password = request.POST['password']
 
-    print username,password
-    user = authenticate(username=username, password=password)
-    if user is not None:
+	print username,password
+	user = authenticate(username=username, password=password)
+	if user is not None:
 
-        login(request, user)
-
-
-        return HttpResponseRedirect('/dashboard/')
-
-    else:
+		login(request, user)
 
 
-    	return render(request, 'login.html',{'error': 'No existe este usuario'})
+		return HttpResponseRedirect('/dashboard/')
+
+	else:
+
+
+		return render(request, 'login.html',{'error': 'No existe este usuario'})
 
  
 
@@ -225,13 +265,15 @@ def guardar(request):
 		placa= request.POST['placa']
 		cantidad= request.POST['cantidad']
 		marca_producto= request.POST['marca_producto']
-		#modelo_bateria= request.POST['modelo']
+
+		modelo_bateria= request.POST['modelo']
 		precio= request.POST['precio']
 		descuento= request.POST['descuento']
 		precio_total= request.POST['precio_total']
 		cantidad_bu= request.POST['cantidad_bu']
 		fecha_atencion=request.POST['fecha_atencion']
 		direccion_atencion= request.POST['direccion_atencion']
+		distrito=request.POST['distrito']
 		referencia= request.POST['referencia']
 			#factura
 		ruc =request.POST['ruc']
@@ -271,8 +313,8 @@ def guardar(request):
 
 		#ruc=ruc,direc_rs=razon_socia,direc_rs=direccion_rs,correo=correo,atiende=atiende,almacen=almacen,gmail=gmail,status=estado,obserbaciones=obserbaciones
 
-        
-        
+		
+		
 
 		#ruc = request.POST['ruc']
 		Produccion(telefono_1=telefono_1,telefono_2=telefono_2,cliente=cliente,apellido_p=apellido_p,apellido_m=apellido_m,dni=dni,marca_vehiculo_id=None,modelo_id=modelo,version=version,serie=serie,anio=anio,motor=motor,color=color,kilometraje=kilometraje,placa=placa,cantidad=cantidad,marca_producto=marca_producto,precio=precio,descuento=descuento,precio_total=precio_total,cantidad_bu=cantidad_bu,fecha_atencion=fecha_atencion,direccion_atencion=direccion_atencion,referencia=referencia,comprobante=pago,ruc=ruc,razon_social=razon_social,direccion_rs=direccion_rs,correo=correo,atiende=atiende,almacen=almacen,gmail=gmail,status=status,observaciones=observaciones,nombre_boleta=nombre_boleta,dni_c=dni_c,direccion1=direccion1).save()
@@ -284,84 +326,150 @@ def guardar(request):
 
 def dashboard(request):
 
-
-	marcas= Vehiculo.objects.values('nombre').annotate(Count('nombre')) #.annotate(Count('nombre')) es para agrupar
-	pagos= Pago.objects.all()
-	almacen=Almacen.objects.all()
-	atiende=Atiende.objects.all()
-	status=Status.objects.all()
-
+		if request.method=='POST':
+			form = BateriasForm(request.POST)
 	
+			if form.is_valid():
 
+				form.save()
+			return HttpResponseRedirect("/dashboard/")
 
-
-	print '---------se ingreso correctamente-',pagos
-	print '---------se ingreso correctamente-',almacen
-
-	print '---------se ingreso correctamente--------------------------------------------------'	
-	nombre=''
-	marca=''
-	modelos=''
-	cliente=""
-	apellido_p=''
-	
-	apellido_m=''
-
-	dni=''
-	telefono_1=''
-
-	telefono_2=''
 
 	
 	
+		marcas= Vehiculo.objects.values('nombre').annotate(Count('nombre')) #.annotate(Count('nombre')) es para agrupar
+		bateria= Bateria.objects.values('marca').annotate(Count('marca'))
+		distritos= Distrito.objects.all()
+		print'heyyy  aquiir estan los distrito,,...',distritos
+		pagos= Pago.objects.all()
+		almacen=Almacen.objects.all()
+		atiende=Atiende.objects.all()
+		status=Status.objects.all()
 
-	print request.GET
+		nombre=''
+		marca=''
+		modelos=''
+		cliente=""
+		marca_b=''
+		apellido_p=''
+		models=''
+		
+		apellido_m=''
 
-	for r in request.GET:
+		dni=''
+		telefono_1=''
 
-		print 'r',r
-			
+		telefono_2=''
+		models_b=''
+		distrito=''
+		version=''
+		serie=''
+		anio=''
+		color=''
 
-		if r=='marca':
 
-			marca= request.GET['marca']
+		kilometraje=''
+		placa=''
+		cant_ba=''
 
-			modelos = Vehiculo.objects.filter(nombre=marca)
-			
-		if r=='cliente':
+		for r in request.GET:
 
-			print 'entre pinches way'
+			if r=='marca':
 
-			cliente =request.GET['cliente']
+				marca= request.GET['marca']
 
-		if r=='apellido_p':
+				modelos = Vehiculo.objects.filter(nombre=marca)
 
-		 	apellido_p =request.GET['apellido_p']
+			if r=='marca_b':
 
-		if r=='apellido_m':
+				marca_b= request.GET['marca_b']
 
-			apellido_m =request.GET['apellido_m']
+				print 'yyyyyyyy',marca_b
 
-		if r=='dni':
+				models_b = Bateria.objects.filter(marca=marca_b)
+				
+			if r=='cliente':
 
-			dni =request.GET['dni']
+				cliente =request.GET['cliente']
 
-		if r=='telefono_1':
+			if r=='apellido_p':
 
-			telefono_1 =request.GET['telefono_1']
+				apellido_p =request.GET['apellido_p']
 
-		if r=='telefono_2':
+			if r=='apellido_m':
 
-			telefono_2 =request.GET['telefono_2']
+				apellido_m =request.GET['apellido_m']
+
+			if r=='dni':
+
+				dni =request.GET['dni']
+
+			if r=='telefono_1':
+
+				telefono_1 =request.GET['telefono_1']
+
+			if r=='telefono_2':
+
+				telefono_2 =request.GET['telefono_2']
+
+			if r=='distrito':
+
+				distrito =request.GET['ditrito']
+
+			if r=='version': #  NOMBRE DE QUE LE DAS LA url q le das
+
+				version =request.GET['version'] # IDENTIFICADOR / NOMBRE DEL TRAEMODELOS
+				print 'quue metraes aca.. VERSIOn...',version
+
+			if r=='serie': 
+
+				serie =request.GET['serie'] 
+				print 'quue metraes aca.. SERIEE...',serie
+
+
+			if r=='anio': 
+
+				anio =request.GET['anio'] 
+				print 'por q no e traes el anioo.... ANIOO',anio
+
+			if r=='color': 
+
+				color =request.GET['color'] 
+				print '	que color  ke trares......COLOR..	',color
+
+
+			if r=='cilindrada': #  NOMBRE DE QUE LE DAS LA url q le das
+
+				cilindrada =request.GET['cilindrada'] # IDENTIFICADOR / NOMBRE DEL traemodelos
+				print 'cinlidradasssssss...s...',cilindrada
+
+
+
+
+			if r=='kilometraje': #  NOMBRE DE QUE LE DAS LA url q le das
+
+				kilometraje =request.GET['kilometraje'] # IDENTIFICADOR / NOMBRE DEL TRAEM0ODELOS
+				print 'quue metraes aca.. kilometraje...',kilometraje
+
+			if r=='placa': #  NOMBRE DE QUE LE DAS LA url q le das
+
+				placa =request.GET['placa'] # IDENTIFICADOR / NOMBRE DEL TRAEMODELOS
+				print 'quue placa essss...',placa
+
+			if r=='cant_ba': #  NOMBRE DE QUE LE DAS LA url q le das
+
+				cant_ba =request.GET['cant_ba'] # IDENTIFICADOR / NOMBRE DEL traemodelos
+				print 'cantidadessssssssssssssssss...',cant_ba
+
+
+
+
+		v = VehiculosForm()
+		baterias=BateriasForm()
 
 		
 
-	return render(request, 'dashboard.html',{'status':status,'atiende':atiende,'almacen':almacen,'pagos':pagos,'telefono_2':telefono_2,'telefono_1':telefono_1,'dni':dni,'cliente':cliente,'apellido_p':apellido_p,'apellido_m':apellido_m,'modelos':modelos,'marcas':marcas,'marca':marca})
-
-	
-
-	#return render(request, 'dashboard.html',{'marcas':marcas})
-
+		return render(request, 'dashboard.html',{'cilindrada':cilindrada,'cant_ba':cant_ba,'placa':placa,'kilometraje':kilometraje,'color':color,'anio':anio,'serie':serie,'version':version,'distrito':distritos,'bateriasform':baterias,'vehiculoform':v,'bateria':bateria,'status':status,'atiende':atiende,'almacen':almacen,'pagos':pagos,'telefono_2':telefono_2,'telefono_1':telefono_1,'dni':dni,'cliente':cliente,'apellido_p':apellido_p,'apellido_m':apellido_m,'modelos':modelos,'marcas':marcas,'marca':marca,'marca_b':marca_b,'marcas_b':models_b})
 
 
 def album(request):

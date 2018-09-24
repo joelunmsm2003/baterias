@@ -101,9 +101,6 @@
   </div>
 
  
-
-
-
   <div class="form-row m-1">
 
   <div class="form-group col-md-2">
@@ -135,37 +132,47 @@
 
     <div class="form-group col-md-2">
     <label for="inputModelo" class="text-dark">Modelo del vehiculo</label>
-    
+    <div class="input-group">
+    <div class="input-group-prepend">
 
      <select name='modelo' class="form-control">
 
         {% for m in modelos %}
 
-        <option value='{{m.id}}'>{{m.modelo}}</option>
+        <option value='{{m.id}}'> {{m.modelo}}</option>
 
         {% endfor %}
 
     </select>
+    
+      <div class="input-group-text" id="btnGroupAddon" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus-square" aria-hidden="true"></i></div>
 
+    </div>
+  </div>
 
 
   </div>
+
+
+
+
 
 
 
     <div class="form-group col-md-2">
     <label for="inputVersion" class="text-dark">version</label>
-    <input type="text" class="form-control rounded" id="inputVersion" name="version" placeholder="Version">
+    <input type="text" class="form-control rounded" id="inputVersion" name="version"  value='{{version}}' placeholder="Version">
+
   </div>
 
   <div class="form-group col-md-2">
     <label for="inputSerie" class="text-dark">Serie</label>
-    <input type="text" class="form-control rounded" id="inputSerie" name="serie" placeholder="Serie">
+    <input type="text" class="form-control rounded" id="inputSerie" name="serie" placeholder="Serie" value='{{serie}}'>
   </div>
 
     <div class="form-group col-md-2">
     <label for="inputAnio" class="text-dark">Año </label>
-    <input type="text" class="form-control rounded" id="inputAnio"  name="anio" placeholder="Año">
+    <input type="text" class="form-control rounded" id="inputAnio"  name="anio" placeholder="Año" value="{{anio}}">
   </div>
 
  <!--  <div class="form-group col-md-2">
@@ -175,12 +182,12 @@
 
       <div class="form-group col-md-2">
       <label for="inputColor" class="text-dark">color</label>
-      <input type="text" class="form-control rounded" id="inputColor"  name="color" placeholder="Color"  >
+      <input type="text" class="form-control rounded" id="inputColor"  name="color" placeholder="Color" value="{{color}}" >
     </div>
 
     <div class="form-group col-md-4">
       <label for="inputCili" class="text-dark">Cilindrada del Motor</label>
-      <input type="text" class="form-control rounded" id="inputCili"  name="motor" placeholder="cilindrada">
+      <input type="text" class="form-control rounded" id="inputCili"  name="motor" placeholder="cilindrada" value="{{cilindrada}}">
     </div>
 
 
@@ -188,7 +195,7 @@
 
     <div class="form-group col-md-4">
       <label for="inputkilo" class="text-dark">Kilometraje</label>
-      <input type="text" class="form-control rounded" id="inputkilo"  name="kilometraje" placeholder="kilometraje">
+      <input type="text" class="form-control rounded" id="inputkilo"  name="kilometraje" placeholder="kilometraje" value="{{kilometraje}}">
     </div>
     
 
@@ -197,7 +204,7 @@
 
     <div class="form-group col-md-4">
       <label for="inputZip" class="text-dark">Placa</label>
-      <input type="text" class="form-control rounded" id="inputZip" name="placa" placeholder="Placa">
+      <input type="text" class="form-control rounded" id="inputZip" name="placa" placeholder="Placa" value="{{placa}}">
     </div>
 
 
@@ -214,12 +221,66 @@
 
     <div class="form-group col-md-2">
       <label for="inputP" class="text-dark">Cantidad de Baterias</label>
-      <input type="number" class="form-control rounded" id="inputP" name="cantidad"  value="1" onchange="cal()" placeholder="100" >
+      <input type="number" class="form-control rounded" id="inputP" name="cantidad"  value="{{cant_ba}}" onchange="cal()" placeholder="100" >
     </div>
 
+
+
+
+
+
+
+
     <div class="form-group col-md-2">
-    <label for="inputMP" class="text-dark">Marca del Producto</label>
-    <input type="text" class="form-control rounded" id="inputMP" name="marca_producto" placeholder="Ingrese marca">
+    <label for="inputMP" class="text-dark">Marca de la bateriaaaa</label>
+    <!-- <input type="text" class="form-control rounded" id="inputMP" name="marca_producto" placeholder="Ingrese marca"> -->
+     
+        
+          
+        <select name='marca_producto' id="marca_b" class="form-control" onchange='traemodelos()' >
+
+        {% for b in bateria %}
+
+
+           
+            {% if marca_b == b.marca %}
+
+              <option value='{{b.marca}}' selected>{{b.marca}}</option>
+
+            {% else %}
+
+              <option  value='{{b.marca}}'>{{b.marca}}</option>
+
+            {% endif %}
+
+
+        {% endfor %}
+
+    </select>
+
+    
+ </div>
+  <div class="form-group col-md-2">
+    <label for="inputMP" class="text-dark">Modelo de la bateria</label>
+    <!-- <input type="text" class="form-control rounded" id="inputMP" name="marca_producto" placeholder="Ingrese marca"> -->
+
+    <div class="input-group">
+     <div class="input-group-prepend">
+    <select name='modelo' id="modelo_b" class="form-control">
+
+        {% for b in marcas_b %}
+
+        <option value='{{b.id}}'>{{b.modelo}}</option>
+
+        {% endfor %}
+
+
+    </select>
+    <div class="input-group-text" id="btnGroupAddon" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus-square" aria-hidden="true"></i></div>
+  </div>
+
+</div>
+
   </div>
 
   
@@ -241,11 +302,12 @@
   <div class="form-group col-md-2">
     <label for="inputDesc" class="text-dark">Descuento</label>
      <div class="input-group"> 
+      <div class="input-group-prepend">
+      <div class="input-group-text" id="btnGroupAddon">S/.</div>
+    </div>
     <input type="number" class="form-control rounded" id="inputDesc" name="descuento"  value="0" onchange="cal()" placeholder="18%"/>
 
-    <div class="input-group-prepend">
-      <div class="input-group-text" id="btnGroupAddon">%.</div>
-    </div>
+    
   </div>
 </div>
 
@@ -291,7 +353,7 @@
     <input type="text" class="form-control" name="cantidad_bu" id="inputBU" placeholder="100" value="1">
   </div>
 
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-2">
     <label for="inputFI" class="text-dark">Fecha de instalacion</label>
     <input type="text" class="form-control" required="true" name="fecha_atencion" id="inputFI" placeholder="fecha">
   </div>
@@ -370,7 +432,34 @@ $( "#btn" ).click(function() {
     <input type="text" class="form-control"  name="direccion_atencion" id="inpuguardatRF" onchange='guardadireccion()'  placeholder="Direccion">
   </div>
 
+
+
   <div class="form-group col-md-4">
+    <label for="inputMarca" class="text-dark">Distrito</label>
+
+    <select name='distrito' id="distrito" class="form-control" >
+
+      
+        {% for d in distrito%}
+
+        <option value='{{d.id}}'>{{d.nombre}}</option>
+
+
+        {% endfor %}
+
+          
+
+            
+    </select>
+    
+
+
+
+  </div>
+
+
+
+  <div class="form-group col-md-12">
     <label for="inputRef" class="text-dark">Referencia</label>
     <input type="text" class="form-control"  name="referencia" id="inputRef" placeholder="Referencia">
   </div>
@@ -708,15 +797,16 @@ $( "#gridCheck" ).click(function() {
         c = parseInt(document.getElementById("inputP").value);
 
 
-        console.log ('descuentasosss',des=(a-((b/n)*a)))
-        
+        // console.log ('descuentasosss',des=(a-((b/n)*a)))
+
+        console.log ('descuentasosss',des=((a-b)*c))
         
     
     console.log(a,b,c)
 
-       console.log ('total',cant*des)
+       console.log ('total',des)
 
-    document.getElementById("inputTotal").value =cant*des;
+    document.getElementById("inputTotal").value =des;
   } catch (e) {
   }
 }
@@ -728,19 +818,27 @@ $( "#gridCheck" ).click(function() {
 
 
       var x = document.getElementById("marca").value;
+      var marca_b = document.getElementById("marca_b").value;
       var cliente = document.getElementById("cliente").value;
       var apellido_p = document.getElementById("apellido_p").value;
       var apellido_m = document.getElementById("apellido_m").value;
       var dni = document.getElementById("dni").value;
       var telefono_1 = document.getElementById("telefono_1").value;
       var telefono_2 = document.getElementById("telefono_2").value;
-      //var pago = document.getElementById("pago").value;
+      var version = document.getElementById("inputVersion").value;
+      var serie = document.getElementById("inputSerie").value;
+      var anio = document.getElementById("inputAnio").value;
+      var color = document.getElementById("inputColor").value;
+
+      var cilindrada = document.getElementById("inputCili").value;
+      var kilom = document.getElementById("inputkilo").value;
+      var placa = document.getElementById("inputZip").value;
+      var cant_ba = document.getElementById("inputP").value;
       // var direccion = document.getElementById("direccion").value;
 
      
 
-    window.location.href = "/dashboard/?marca="+x+'&cliente='+cliente+'&apellido_p='+apellido_p+'&apellido_m='+apellido_m+'&dni='+dni+'&telefono_1='+telefono_1+'&telefono_2='+telefono_2
-
+    window.location.href = "/dashboard/?marca="+x+'&cliente='+cliente+'&apellido_p='+apellido_p+'&apellido_m='+apellido_m+'&dni='+dni+'&telefono_1='+telefono_1+'&telefono_2='+telefono_2+'&marca_b='+marca_b+'&version='+version+'&serie='+serie+'&anio='+anio+'&color='+color+'&cilindrada='+cilindrada+'&kilometraje='+kilom+'&placa='+placa+'&cant_ba='+cant_ba
 
 
     }
@@ -796,7 +894,10 @@ $( "#gridCheck" ).click(function() {
 
   di
   
-</form>								
+</form>	
+
+
+
 																
 
 
@@ -1498,9 +1599,7 @@ $( "#gridCheck" ).click(function() {
     
           <!-- Feeds Section-->
 
-
-
-
+<!-- Button trigger modal -->
 
 
 
@@ -1558,3 +1657,141 @@ $( "#gridCheck" ).click(function() {
 
 		</body>
 </html>
+
+
+
+<!--MODAL NUMERO #1-->
+
+
+
+
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">MARCA/MODELO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+
+
+             <form id='formula' method='POST' action='/vehiculos/'>
+
+
+    {% csrf_token %}
+    
+
+      <div class='row'>
+                
+
+
+            {% for field in vehiculoform %}
+                  
+              <div class="form-group col-md-12">
+
+
+                  {{ field.label_tag }} {{ field }}
+                  
+
+                  
+              </div>
+            {% endfor %}
+
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      <button type="sumit" class="btn btn-danger"  value='Guardar'>Guardar</button>
+      <!-- <p><input class='btn btn-dark' type='submit' value='Guardar'/></p> -->
+       </div>
+  </form>
+
+
+
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--MODAL NUMERO #2-->
+
+
+<!-- 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+ -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">MARCA/MODELO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+
+
+             <form id='formula' method='POST' action='/dashboard/'>
+
+
+    {% csrf_token %}
+    
+
+      <div class='row'>
+                
+
+
+            {% for field in bateriasform %}
+                  
+              <div class="form-group col-md-12">
+
+
+                  {{ field.label_tag }} {{ field }}
+                  
+
+                  
+              </div>
+            {% endfor %}
+
+
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+      <button type="sumit" class="btn btn-success"  value='Guardar'>Guardar</button>
+      <!-- <p><input class='btn btn-dark' type='submit' value='Guardar'/></p> -->
+       </div>
+  </form>
+
+
+
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+
+

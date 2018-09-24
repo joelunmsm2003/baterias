@@ -14,6 +14,8 @@ urlpatterns = [
     
     # url(r'^$', 'views.IndexView'),
     url(r'^admin/', admin.site.urls),
+    url(r'^usuarios/$', usuarios, name='usuarios'),
+    url(r'^vehiculos/$', vehiculos),
     
     # url(r'^api-token-auth/', 'jwt_auth.views.obtain_jwt_token'),
     url(r'^pos/', admin_site.urls),

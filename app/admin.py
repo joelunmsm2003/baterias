@@ -30,6 +30,13 @@ admin_site = MyAdminSite(name='myadmin')
 
 # Register your models here.
 
+
+
+@admin.register(Distrito)
+class DistritoAdmin(admin.ModelAdmin):
+	list_display = ('id','nombre')
+	list_filter=('nombre',)
+
 @admin.register(Vehiculo)
 class VehiculoAdmin(admin.ModelAdmin):
 	list_display = ('id','nombre','modelo')
@@ -53,6 +60,7 @@ class ProduccionAdmin(admin.ModelAdmin):
 class BateriaAdmin(admin.ModelAdmin):
     list_display = ('id','cantidad','marca','modelo','codigo')
     search_fields=('cantidad',)
+    
 
 @admin.register(Pago)
 class PagooAdmin(admin.ModelAdmin):

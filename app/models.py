@@ -25,6 +25,9 @@ class Album(models.Model):
 
 
 
+class Distrito(models.Model):
+    nombre= models.CharField(max_length=1000,blank=True, null=True)
+
 class Bateria(models.Model):
     codigo = models.CharField(max_length=1000,blank=True, null=True)
     equivalencia = models.CharField(max_length=1000,blank=True, null=True)
@@ -117,8 +120,14 @@ class Produccion(models.Model):
 
                 #Descripcion del Producto (bateria)
     cantidad= models.CharField(max_length=1000,blank=True, null=True)
-    marca_producto= models.CharField(max_length=1000,blank=True, null=True)
-    modelo_bateria = models.CharField(max_length=1000,blank=True, null=True)
+
+
+    marca_producto= models.ForeignKey(Bateria,help_text='Marca de la bateria ',max_length=1000,blank=True, null=True,related_name='_marca')
+  
+    modelo_bateria = models.ForeignKey(Bateria,help_text='Modelo de la bateria',max_length=1000,blank=True, null=True,related_name='_modelo')
+  
+
+
     precio= models.CharField(max_length=1000,blank=True, null=True)
     cantidad_bu= models.CharField(help_text='Cantidad de baterias usadas',max_length=1000,blank=True, null=True)
     descuento= models.CharField(max_length=1000,blank=True, null=True)
@@ -129,6 +138,11 @@ class Produccion(models.Model):
     hora_instalacion= models.TimeField(max_length=1000,blank=True, null=True,default=datetime.datetime.today(),editable=False)           
     misma_direccion= models.CharField(max_length=1000,blank=True, null=True)
     direccion_atencion= models.CharField(max_length=1000,blank=True, null=True)
+
+    distrito=models.ForeignKey(Distrito,help_text='Distrito',max_length=1000,blank=True, null=True,related_name='_nombre')
+
+    
+
     referencia= models.CharField(max_length=1000,blank=True, null=True)
     comprobante= models.CharField(max_length=1000,blank=True, null=True)
 
