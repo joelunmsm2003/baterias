@@ -317,7 +317,7 @@ def guardar(request):
 		
 
 		#ruc = request.POST['ruc']
-		Produccion(telefono_1=telefono_1,telefono_2=telefono_2,cliente=cliente,apellido_p=apellido_p,apellido_m=apellido_m,dni=dni,marca_vehiculo_id=None,modelo_id=modelo,version=version,serie=serie,anio=anio,motor=motor,color=color,kilometraje=kilometraje,placa=placa,cantidad=cantidad,marca_producto=marca_producto,precio=precio,descuento=descuento,precio_total=precio_total,cantidad_bu=cantidad_bu,fecha_atencion=fecha_atencion,direccion_atencion=direccion_atencion,referencia=referencia,comprobante=pago,ruc=ruc,razon_social=razon_social,direccion_rs=direccion_rs,correo=correo,atiende=atiende,almacen=almacen,gmail=gmail,status=status,observaciones=observaciones,nombre_boleta=nombre_boleta,dni_c=dni_c,direccion1=direccion1).save()
+		Produccion(telefono_1=telefono_1,telefono_2=telefono_2,cliente=cliente,apellido_p=apellido_p,apellido_m=apellido_m,dni=dni,marca_vehiculo_id=None,modelo_id=modelo,version=version,serie=serie,anio=anio,motor=motor,color=color,kilometraje=kilometraje,placa=placa,cantidad=cantidad,marca_producto_id=None,precio=precio,descuento=descuento,precio_total=precio_total,cantidad_bu=cantidad_bu,fecha_atencion=fecha_atencion,direccion_atencion=direccion_atencion,referencia=referencia,comprobante=pago,ruc=ruc,razon_social=razon_social,direccion_rs=direccion_rs,correo=correo,atiende=atiende,almacen=almacen,gmail=gmail,status=status,observaciones=observaciones,nombre_boleta=nombre_boleta,dni_c=dni_c,direccion1=direccion1).save()
 		#print 'telefonoooo',tlf1,
 	return HttpResponseRedirect("/dashboard")
 #referencia=referencia,
@@ -371,6 +371,7 @@ def dashboard(request):
 		kilometraje=''
 		placa=''
 		cant_ba=''
+		cilindrada= ''
 
 		for r in request.GET:
 
